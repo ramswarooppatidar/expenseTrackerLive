@@ -50,14 +50,20 @@
   transform: translateX(0);
 }
 
+/* .edit,
+.delete {
+  height: 100%;
+  transition: all 0.15s ease-in-out;
+} */
 .edit,
 .delete {
   height: 100%;
   transition: all 0.15s ease-in-out;
+  transform: scale(1); /* Set initial scale to 1 */
 }
 
-.edit:hover,
+/* .edit:hover,
 .delete:hover {
-  cursor: pointer;
-  transform: scale(1.15);
-}
+  cursor: pointer; 
+   transform: scale(1.15);
+} */
