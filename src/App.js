@@ -11,7 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // import firebase methods here
-import { doc, collection, addDoc, setDoc, getDocs, onSnapshot } from "firebase/firestore";
+import { doc, collection, addDoc, setDoc, getDocs, onSnapshot, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseInit";
 
 const reducer = (state, action) => {
@@ -59,29 +59,31 @@ function App() {
    // dispatch({ type: "GET_EXPENSES", payload: { expenses } });
    //  toast.success("Expenses retrived successfully.");
 
-    // const snapRef = doc(collection(db, "expense-tracker"))
-    // const snapShot = onSnapshot(snapRef, (snapshot) => {
-    //   console.log("expenses:", snapshot)
-    //   const expenses = snapshot.docs.map((exp) => {
-    //       return {
-    //         id : exp.id,
-    //         ...exp.data()
-    //       }
-    //   })
-    //   dispatch({ type: "GET_EXPENSES", payload: { expenses } });
-    // })
-
-    const docRef = collection(db, "expense-tracker")
-    const allexpense = await getDocs(docRef)
-    const expenses = allexpense.docs.map((exp) => {
-      return {
-        id : exp.id,
-        ...exp.data()
-      }
+    const snapRef = collection(db, "expenses")
+    const snapShot = onSnapshot(snapRef, (snapshot) => {
+      console.log("expenses:", snapshot)
+      const expenses = snapshot.docs.map((exp) => {
+          return {
+            id : exp.id,
+            ...exp.data()
+          }
+      })
+      dispatch({ type: "GET_EXPENSES", payload: { expenses } });
     })
-    dispatch({ type: "GET_EXPENSES", payload: { expenses } });
+
+  //   const docRef = collection(db, "expense-tracker")
+  //   const allexpense = await getDocs(docRef)
+  //   const expenses = allexpense.docs.map((exp) => {
+  //     return {
+  //       id : exp.id,
+  //       ...exp.data()
+  //     }
+  //   })
+  //   dispatch({ type: "GET_EXPENSES", payload: { expenses } });
     
-    toast.success("Expenses retrived successfully.");
+  //   toast.success("Expenses retrived successfully.");
+
+
   };
 
   useEffect(() => {
@@ -91,17 +93,27 @@ function App() {
   const addExpense = async (expense) => {
     const expenseRef = collection(db, "expenses");
     const docRef = await addDoc(expenseRef, expense);
-    dispatch({
-      type: "ADD_EXPENSE",
-      payload: { expense: { id: docRef.id, ...expense } }
-    });
+    //lisnter automatically added
+    // dispatch({
+    //   type: "ADD_EXPENSE",
+    //   payload: { expense: { id: docRef.id, ...expense } }
+    // });
+
     toast.success("Expense added successfully.");
   };
 
-  const deleteExpense = (id) => {
-    dispatch({ type: "REMOVE_EXPENSE", payload: { id } });
+  const deleteExpense = async (id) => {
+    try{
+      const delRef = doc(db, "expenses", id)
+      await deleteDoc(delRef)  
+      dispatch({ type: "REMOVE_EXPENSE", payload: { id } });
+      toast.success("expenses deleted")
+    }catch(error){
+      toast.error("failed to delete expense")
+    }
+   
+ 
   };
-
   const resetExpenseToUpdate = () => {
     setExpenseToUpdate(null);
   };
