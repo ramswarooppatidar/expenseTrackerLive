@@ -68,20 +68,11 @@ function App() {
             ...exp.data()
           }
       })
+      toast.success("Expenses retrived successfully.");
       dispatch({ type: "GET_EXPENSES", payload: { expenses } });
     })
 
-  //   const docRef = collection(db, "expense-tracker")
-  //   const allexpense = await getDocs(docRef)
-  //   const expenses = allexpense.docs.map((exp) => {
-  //     return {
-  //       id : exp.id,
-  //       ...exp.data()
-  //     }
-  //   })
-  //   dispatch({ type: "GET_EXPENSES", payload: { expenses } });
-    
-  //   toast.success("Expenses retrived successfully.");
+  
 
 
   };
@@ -93,7 +84,7 @@ function App() {
   const addExpense = async (expense) => {
     const expenseRef = collection(db, "expenses");
     const docRef = await addDoc(expenseRef, expense);
-    //lisnter automatically added
+    //lisnter automatically added so comment this dispatcher function
     // dispatch({
     //   type: "ADD_EXPENSE",
     //   payload: { expense: { id: docRef.id, ...expense } }
