@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./ExpenseForm.module.css";
+import ExpenseInfo from "../ExpenseInfo/ExpenseInfo";
 
 const ExpenseForm = ({
   addExpense,
@@ -55,6 +56,7 @@ const ExpenseForm = ({
   };
 
   return (
+    <>
     <form className={styles.form} onSubmit={onSubmitHandler}>
       <h3>{expenseToUpdate ? "Edit " : "Add new "}transaction</h3>
       <label htmlFor="expenseText">Text</label>
@@ -82,6 +84,9 @@ const ExpenseForm = ({
         {expenseToUpdate ? "Edit " : "Add "} Transaction
       </button>
     </form>
+    {/* <ExpenseInfo/> */}
+    </>
+    
   );
 };
 

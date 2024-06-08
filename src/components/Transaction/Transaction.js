@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Transaction.module.css";
 import EditImage from "../../images/edit.png";
 import DeleteImage from "../../images/trash-bin.png";
+import { NavLink, useNavigate } from "react-router-dom"
 
 const Transaction = ({
   expense,
@@ -10,6 +11,13 @@ const Transaction = ({
   index
 }) => {
   const [currentHoverIndex, setCurrentHoverIndex] = useState(null);
+  // const history = unstable_HistoryRouter()
+  const navigate = useNavigate();
+  const handleEditClick = () => {
+    changeExpenseToUpdate(expense); 
+    navigate('/')
+  };
+  
   return (
     <li
       key={expense.id}
@@ -37,11 +45,18 @@ const Transaction = ({
             currentHoverIndex === index && styles.active
           }`}
         >
-          <div
+          {/* <div
             className={styles.edit}
             onClick={() => {
               changeExpenseToUpdate(expense);
             }}
+          >
+            <img src={EditImage} height="100%" alt="Edit" />
+          </div> */}
+
+           <div
+            className={styles.edit}
+            onClick={handleEditClick}
           >
             <img src={EditImage} height="100%" alt="Edit" />
           </div>

@@ -1,5 +1,5 @@
 {
-  "homepage":"https://ramswarooppatidat.github.io/expenseTrackerLive",
+  "homepage": "https://ramswarooppatidat.github.io/expenseTrackerLive",
   "name": "create-react-app-with-tests",
   "version": "1.0.0",
   "description": "",
@@ -25,6 +25,7 @@
     "jest-json-reporter": "1.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "react-toastify": "9.1.1",
     "ts-node": "10.9.1",
